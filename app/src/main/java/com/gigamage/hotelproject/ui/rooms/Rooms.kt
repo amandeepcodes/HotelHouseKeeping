@@ -37,18 +37,19 @@ import com.gigamage.hotelproject.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RoomsList() {
-Scaffold(floatingActionButton = { AddRoomButton() }, content = {
-    Surface(modifier = Modifier.padding(paddingValues = it)) {
-        ListOfRommsUI()
-    }
-    } )
+fun RoomsList(onClickAddNewRooms: () -> Unit) {
+
+    Scaffold(floatingActionButton = { AddRoomButton(onClickAddNewRooms) }, content = {
+        Surface(modifier = Modifier.padding(paddingValues = it)) {
+            ListOfRoomsUI()
+        }
+    })
 
 }
 
 
 @Composable
-fun ListOfRommsUI(){
+fun ListOfRoomsUI() {
     LazyColumn(
         modifier = Modifier, verticalArrangement = Arrangement.spacedBy(8.dp),
         contentPadding = PaddingValues(horizontal = 16.dp)
@@ -58,47 +59,49 @@ fun ListOfRommsUI(){
         }
     }
 }
+
 @Composable
 fun Room() {
     Surface(shape = MaterialTheme.shapes.small) {
         Card {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(70.dp), verticalAlignment = Alignment.CenterVertically
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.king), contentDescription = "image",
+            Row(
                 modifier = Modifier
-                    .size(40.dp)
-                    .padding(4.dp)
-            )
+                    .fillMaxWidth()
+                    .height(70.dp), verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.king), contentDescription = "image",
+                    modifier = Modifier
+                        .size(40.dp)
+                        .padding(4.dp)
+                )
 
-            Column(modifier = Modifier.weight(1f, true)) {
-                Text(text = "501", style = MaterialTheme.typography.headlineSmall)
-                Text(text = "Room Status", style = MaterialTheme.typography.labelSmall)
+                Column(modifier = Modifier.weight(1f, true)) {
+                    Text(text = "501", style = MaterialTheme.typography.headlineSmall)
+                    Text(text = "Room Status", style = MaterialTheme.typography.labelSmall)
+                }
+                Box(
+                    modifier = Modifier
+                        .widthIn(16.dp)
+                        .fillMaxHeight()
+                        .clip(RectangleShape)
+                        .background(Color.Red)
+                )
             }
-            Box(
-                modifier = Modifier
-                    .widthIn(16.dp)
-                    .fillMaxHeight()
-                    .clip(RectangleShape)
-                    .background(Color.Red)
-            )
-        }
         }
     }
 }
 
 
 @Composable
-fun AddRoomButton(){
-    FloatingActionButton(onClick = { /*TODO*/ }) {
-        Icon(Icons.Filled.Add,"")
+fun AddRoomButton(onClickAddNewRooms: () -> Unit) {
+    FloatingActionButton(onClick = onClickAddNewRooms) {
+        Icon(Icons.Filled.Add, "")
     }
 }
+
 @Composable
 @Preview
 fun previewRooms() {
-    RoomsList()
+    RoomsList {}
 }

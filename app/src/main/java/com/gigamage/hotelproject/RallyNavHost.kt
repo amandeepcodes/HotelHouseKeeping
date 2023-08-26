@@ -1,11 +1,13 @@
 package com.gigamage.hotelproject
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.gigamage.hotelproject.ui.TasksListUI
+import com.gigamage.hotelproject.ui.tasks.TasksListUI
+import com.gigamage.hotelproject.ui.rooms.AddRoomScreen
 import com.gigamage.hotelproject.ui.rooms.RoomsList
 
 @Composable
@@ -19,7 +21,11 @@ fun RallyNavHost(
         modifier = modifier
     ) {
         composable(route = RoomsDestination.route) {
-            RoomsList()
+            RoomsList(
+                onClickAddNewRooms = {
+                    navController.navigateToAddRoomScreen()
+                }
+            )
 //            OverviewScreen(
 //                onClickSeeAllAccounts = {
 //                    navController.navigateSingleTopTo(Accounts.route)
@@ -33,7 +39,9 @@ fun RallyNavHost(
 //            )
         }
         composable(route = TasksDestinations.route) {
-            TasksListUI()
+            TasksListUI(onClickAddNewTask = {
+
+            })
 //            AccountsScreen(
 //                onAccountClick = { accountType ->
 //                    navController.navigateToSingleAccount(accountType)
@@ -44,21 +52,15 @@ fun RallyNavHost(
 //            BillsScreen()
 //        }
 
-//        composable(
-//            route = SingleAccount.routeWithArgs,
-//            arguments = SingleAccount.arguments,
-//            deepLinks = SingleAccount.deepLinks
-//        ) { navBackStackEntry ->
-//            val accountType =
-//                navBackStackEntry.arguments?.getString(SingleAccount.accountTypeArg)
-//            SingleAccountScreen(accountType)
-//        }
+        composable(route = AddRoom.route) {
+            AddRoomScreen()
+        }
     }
 }
 
 fun NavHostController.navigateSingleTopTo(route: String) =
     this.navigate(route) { launchSingleTop = true }
 
-//private fun NavHostController.navigateToSingleAccount(accountType: String) {
-//    this.navigateSingleTopTo("${SingleAccount.route}/$accountType")
-//}
+private fun NavHostController.navigateToAddRoomScreen() {
+    this.navigateSingleTopTo(AddRoom.route)
+}
