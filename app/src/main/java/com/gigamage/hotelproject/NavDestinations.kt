@@ -29,7 +29,7 @@ object AddRoom : TabDestination {
     // part of the RallyTabRow selection
     override val icon = Icons.Filled.AddCircle
     override val route: String = "AddRooms"
-    val screen: @Composable () -> Unit = { AddRoomScreen()}
+    val screen: @Composable () -> Unit = { AddRoomScreen() }
 }
 
 

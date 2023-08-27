@@ -1,6 +1,5 @@
 package com.gigamage.hotelproject.ui.rooms
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,13 +26,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.gigamage.hotelproject.data.Room
+import com.gigamage.hotelproject.viewmodels.AddRoomViewModel
+
+@Composable
+fun AddRoomScreen(addViewModel: AddRoomViewModel = hiltViewModel()){
+
+    AddRoomScreen(onAddButtonClick = {room -> addViewModel.addNewRoom(room)})
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddRoomScreen() {
+fun AddRoomScreen(  onAddButtonClick: (Room) -> Unit) {
 
     var text by remember { mutableStateOf("") }
-
     var hasSofa by remember { mutableStateOf(true) }
 
     val radioGroupOptions = listOf("King", "Queen")
@@ -55,18 +62,16 @@ fun AddRoomScreen() {
 
             RoomType(radioGroupOptions, selectedOption, onOptionSelected)
 
-            if (selectedOption == radioGroupOptions[0]) {
                 Row(modifier = Modifier, verticalAlignment = Alignment.CenterVertically) {
                     Checkbox(checked = hasSofa, onCheckedChange = { hasSofa = it })
                     Text(text = "Has Sofa? ")
-                }
-            }
 
+            }
 
             Button(
                 onClick = {
                     if (text.isNotEmpty()) {
-                        Log.e("Data", "$text , $selectedOption , $hasSofa")
+                        onAddButtonClick(Room(text,selectedOption,hasSofa,text[0].toString()))
                     }
 
                 },
@@ -112,5 +117,5 @@ fun RoomType(
 @Preview
 @Composable
 fun PreviewAddRoomScreen() {
-    AddRoomScreen()
+//    AddRoomScreen { room -> addViewModel.addNewRoom(room) }
 }

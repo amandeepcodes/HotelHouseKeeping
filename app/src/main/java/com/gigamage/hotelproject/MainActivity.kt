@@ -16,8 +16,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.gigamage.hotelproject.components.RallyTabRow
+import com.gigamage.hotelproject.data.Room
 import com.gigamage.hotelproject.ui.theme.RallyTheme
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +38,10 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
+
+        }
+
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
